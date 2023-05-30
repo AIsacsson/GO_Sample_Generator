@@ -1,3 +1,7 @@
+'''
+This is a remnant of the original make-graphitics. It is not used.
+'''
+
 import numpy as np
 from sim import Sim
 
@@ -12,6 +16,7 @@ class ReadLammpsData(Sim):
         Copy attributes to another class with:
         ReadLammpsData.__dict__ = obj.__dict__.copy()
         """
+        assert 1 == 0
         self.filename = filename
         self.attributes = {
             "masses",

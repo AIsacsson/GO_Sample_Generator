@@ -1,3 +1,7 @@
+'''
+This is a remnant of the original make-graphitics. It is not used.
+'''
+
 from sim import Sim
 import numpy as np
 import copy
@@ -7,6 +11,7 @@ class Combine(Sim):
     def __init__(self, sim1, sim2):
         # combine two Crystal objects
         # keep cell size from sim1
+        assert 1 == 0
         natoms1 = len(sim1.coords)
         nmols1 = np.amax(sim1.molecule_labels)
 
