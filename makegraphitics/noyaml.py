@@ -140,7 +140,9 @@ def get_pair_coeffs(force_field):
 #
 #   bond_type   AA        Bond coeff.          Description
 #     [1 1]    48 48     469.00 1.4000          CA - CA
-#     [1 3]    48 13     317.00 1.5100          CT - CA
+#     [1 2]    48 49     367.00 1.0800          CA - HA
+#     [1 3]    48 13     317.00 1.5100          CA - CT
+#     [3 1]    13  ?                            CT - HX     
 #     [3 3]    13 13     268.00 1.5290          CT - CT
 #     [3 4]    13  5     320.00 1.4100          CT - OH
 #     [4 5]     5  7     553.00 0.9450          OH - HO
@@ -157,6 +159,7 @@ def get_bond_coeffs(ffield, bond_type_list):
     bond_pot = {"OPLS_Jorgensen2009":
                 {
                     1: {1: [469.00, 1.4000, "# CA-CA  OPLS-AA [48 48] (Jorgensen2009)"],
+                        2: [367.00, 1.08,   "# CA-CH  OPLS-AA [48 49] (Jorgensen2009)"],
                         3: [317.00, 1.5100, "# CA-CT  OPLS-AA [13 48] (Jorgensen2009)"]},
                     3: {3: [268.00, 1.5290, "# CT-CT  OPLS-AA [13 13] (Jorgensen2009)"],
                         4: [320.00, 1.4100, "# CT-OH  OPLS-AA [ 5 13] (Jorgensen2009)"],

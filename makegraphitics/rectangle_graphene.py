@@ -16,14 +16,15 @@ crystal class.
 """
 
 class Rectangle_Graphene(Molecule):
-    def __init__(self, x_length, y_length, forcefield="OPLS"):
+    def __init__(self, x_length, y_length, cc_bond_length=1.4148, 
+                 ch_bond_length = 1.077, layer_gap=3.4827):
         # zigzag edges run along the x axis
         # armchair edges run along the y axis
-        config = self.crystal_params()
+        # config = self.crystal_params()
 
-        self.CC = config[forcefield]["CC"]          #Bond length C-C
-        self.CH = config[forcefield]["CH"]          #Nond length C-H edge
-        self.layer_gap = config[forcefield]["layer_gap"] #Interlayer distance
+        self.CC = cc_bond_length          #Bond length C-C
+        self.CH = ch_bond_length         #Nond length C-H edge
+        self.layer_gap = layer_gap #Interlayer distance
 
         self.x_length = x_length
         self.y_length = y_length
@@ -68,8 +69,8 @@ class Rectangle_Graphene(Molecule):
 
     #This one ought to have an additional argument.....
     def cell_shape(self):
-        a = 100 + self.x_length    #Why the hard-coded 100 Å?
-        b = 100 + self.y_length    #These are the unit vectors if 
+        a = 0 + self.x_length    #Why the hard-coded 100 Å?
+        b = 0 + self.y_length    #These are the unit vectors if 
         c = self.layer_gap         #if we create a lattice of flakes
         return [a, b, c]
 
@@ -148,9 +149,15 @@ class Rectangle_Graphene(Molecule):
         atom_labels[self.n_Cs :] = 2  #were added first, and then the H were
         return list(atom_labels)      #added
 
-    #This one I understand but does not invoke lattice dimensions and the
-    #fact that we have copies.
-    def assign_atom_charges(self, lattice_dimensions, q):
+    def assign_atom_states(self, lattice_dimensions):
+        return list(np.zeros(self.natoms, dtype=int))
+        
+
+    #This should be done in the parametrization. For now, just set q=0.115
+    #It seems it would be a lot easier to simply find all the edge H and use 
+    #the bond graph to find the connecting CA or CT
+    def assign_atom_charges(self, lattice_dimensions):
+        q=0.115
         atom_charges = np.zeros(self.natoms)
         # zigzag carbons
         for col in range(self.x):
