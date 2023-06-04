@@ -9,7 +9,7 @@ class Reaction(object):
         self.second = second
 
 
-oxidise_data = os.path.dirname(__file__) + "/../params/oxidise.data"
+oxidise_data = os.path.dirname(__file__) + "/params/oxidise.data"
 reactions = []
 with open(oxidise_data, "r") as f:
     count = 0

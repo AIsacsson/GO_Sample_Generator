@@ -1,4 +1,11 @@
 """
+Version 2023-06-04
+All files have been put in the same directory. This makes it easier to 
+configure in spyder and alleviates the need for setting paths and ensures
+that the annoying bugs in the variable explorer will not show up.
+
+Unused files have been moved to the Unused Directory
+
 Version 2022-04-01.
 Works with makegraphitics_2022_04_01.zip
 
@@ -25,7 +32,15 @@ import numpy as np
 import sys
 from math import pi, cos
 
-import makegraphitics as mg
+import numpy as np
+import sys
+from math import pi, cos
+from graphene_cell import Graphene
+from oxidiser import Oxidiser
+from crystal import Crystal
+from params import Parameterise
+from write_coords import Writer
+
 
 
 # ---------------------------------------------------------------------------
@@ -179,8 +194,8 @@ else:
 # ----------------------------------------------------------------------------
 # motif = mg.molecules.Graphene(cc_bond_length=CC_BOND_LENGTH,
 #                               layer_gap=LAYER_GAP)
-motif = mg.molecules.Graphene()
-flake = mg.Crystal(motif, layout)
+motif = Graphene()
+flake = Crystal(motif, layout)
 
 # ----------------------------------------------------------------------------
 #
@@ -190,10 +205,10 @@ flake = mg.Crystal(motif, layout)
 #                  the moment, and I need to fix some flags....
 #
 # ----------------------------------------------------------------------------
-oxidiser = mg.reactors.Oxidiser(ratio=co, surface_OHratio=ae,
-                                new_island_freq=nif, method=meth,
-                                node_target=node_targ,
-                                force_OH_side=True)
+oxidiser = Oxidiser(ratio=co, surface_OHratio=ae,
+                    new_island_freq=nif, method=meth,
+                    node_target=node_targ,
+                    force_OH_side=True)
 
 # ----------------------------------------------------------------------------
 #
@@ -223,7 +238,7 @@ flake, nodes, stuck = oxidiser.react(flake)
 ffield = "OPLS_Jorgensen2009"
 if ((not Pristine) and (not stuck)) or (Pristine):
     print("Parametrizing sample with forcefield " + ffield)
-    mg.Parameterise(flake, forcefield=ffield)
+    Parameterise(flake, forcefield=ffield)
 
 # ----------------------------------------------------------------------------
 #
@@ -292,7 +307,7 @@ elif Pristine:
 if not stuck:
     print("Writing Lammps file....")
     flake.box_dimensions[2][:] = Box_size_z
-    output = mg.Writer(flake, fname, verbose=False, fix_the_water=True)
+    output = Writer(flake, fname, verbose=False, fix_the_water=True)
     output.write_lammps(fname + ".data")
 
 # ----------------------------------------------------------------------------

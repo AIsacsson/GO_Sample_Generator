@@ -1,7 +1,5 @@
-from makegraphitics import Writer
-from makegraphitics import Parameterise
-#from .. import Writer
-#from .. import Parameterise
+from write_coords import Writer
+from params import Parameterise
 
 
 class Reactor(object):
