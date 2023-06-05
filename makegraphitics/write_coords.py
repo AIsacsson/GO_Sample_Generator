@@ -445,7 +445,13 @@ class Writer(object):
                     )
 
             if len(self.impropers):
+                
                 outfile.write("\n Impropers \n \n")
+                # to get things correct, we must swap the first and third
+                # element when using improper style harmonic and 180
+                # degrees
+                self.impropers[:, [0, 2]] = self.impropers[:, [2, 0]]
+                
                 for i in range(len(self.impropers)):
                     outfile.write(
                         str(i + 1)
